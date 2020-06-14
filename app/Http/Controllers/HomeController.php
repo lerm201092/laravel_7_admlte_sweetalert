@@ -21,9 +21,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
-    {
-        alert()->warning("Contraseña Incorrecta", "Govista S.A.S.")->persistent("OK");        
-        return view('home');
+    public function index(){
+       return redirect("/asesor/resumen");
     }
 }

@@ -20,3 +20,5 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/asesor/resumen', 'Asesor\ResumenController@ShowView')->name('AsesorResumen');
+Route::get('/asesor/ejercicios/listado', 'Asesor\EjerciciosController@ShowViewListado')->name('AsesorEjerciciosListado');
