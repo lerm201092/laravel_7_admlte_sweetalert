@@ -55,7 +55,17 @@ function listar(){
             html+="<td class='d-none d-md-table-cell'>"+(array[i].session_ok ? array[i].session_ok : 0 )+"</td>";
             html+="<td class='d-none d-md-table-cell'>"+array[i].duration+"</td>";
             html+="<td>";
-                html+="<a href='/apps/rol-asesor/ejercicios/play/"+array[i].id+"/"+array[i].id+"/"+array[i].duration+"/2/"+array[i].id+"' class='cl-verde mx-1'><i class='fas fa-play-circle'></i></a>";
+
+            <?php 
+                $hash1 = str_ireplace("/", "", password_hash('govista', PASSWORD_DEFAULT)); 
+                $hash2 = str_ireplace("/", "", password_hash('2020', PASSWORD_DEFAULT));
+                $hash3 = str_ireplace("/", "", password_hash('SENA', PASSWORD_DEFAULT));
+            ?>
+
+                html+= `<form method='POST' action='/asesor/ejercicios/play/{{ $hash1 }}/`+array[i].id+`/{{ $hash2 }}/`+array[i].duration+`/{{ $hash3 }}/2/{{ $hash3 }}'>
+                            @csrf 
+                            <button type='submit' class='btn btn-sm bg-verde mx-1'><i class='text-light fas fa-play-circle'></i></button>
+                        </form>`;
             html+="</td>";
             html+="</tr>";
         }

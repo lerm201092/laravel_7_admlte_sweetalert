@@ -12,6 +12,13 @@ class EjerciciosController extends Controller
     }
 
     public function ShowViewListado(){
-        return view('roles.asesor.ejercicios.listado')->with("valor", "Hola mundo");
+        return view('roles.asesor.ejercicios.listado');
+    }
+
+    public function RecibirParametros($hash1, $id, $hash2, $duration, $hash3, $size, $hash4){
+        return view("roles.asesor.ejercicios.play")
+        ->with("id",        $id       )
+        ->with("duration",  $duration )
+        ->with("size",      $size     );
     }
 }

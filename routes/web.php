@@ -22,3 +22,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/asesor/resumen', 'Asesor\ResumenController@ShowView')->name('AsesorResumen');
 Route::get('/asesor/ejercicios/listado', 'Asesor\EjerciciosController@ShowViewListado')->name('AsesorEjerciciosListado');
+Route::post("/asesor/ejercicios/play/{hash1}/{id}/{hash2}/{duration}/{hash3}/{size}/{hash4}", 'Asesor\EjerciciosController@RecibirParametros');
+Route::get('/asesor/citas/listado', 'Asesor\CitasController@ShowViewListado')->name('AsesorCitasListado');

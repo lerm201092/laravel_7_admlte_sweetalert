@@ -12,7 +12,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="shortcut icon" href="{{ asset('img/favicon.png') }}" type="image/x-icon">
 
   <title>GoVista S.A.S.</title>
-  
+  <!-- jQuery -->
+  <script src="/js/app.js"></script>
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
   
@@ -82,7 +83,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a href="{{ route('AsesorCitasListado') }}" class="nav-link">
                     <i class="fas fa-address-card nav-icon"></i>
                     <p>Citas</p>
                   </a>
@@ -161,8 +162,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <!-- REQUIRED SCRIPTS -->
 
-  <!-- jQuery -->
-  <script src="/js/app.js"></script>
+
   @include('sweet::alert')
 
   @yield('script')
