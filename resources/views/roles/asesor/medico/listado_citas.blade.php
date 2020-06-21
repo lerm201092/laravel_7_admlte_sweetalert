@@ -352,9 +352,9 @@ a#li-medico.active{
                 html+="<td>"+array[i].title+"</td>";
                 html+="<td>"+array[i].start+"</td>";
                 html+="<td class='pl-3'>";
-                    html+="<a href='javascript:void(0)' class='btn btn-sm text-info mx-1' title='Ver Paciente'><i class='fas fa-eye'></i></a>";
-                    html+="<a href='javascript:void(0)' class='btn btn-sm text-warning mx-1' title='Editar Paciente' class='ml-2'><i class='fas fa-user-edit'></i></a>";
-                    html+="<a href='javascript:void(0)' class='btn btn-sm text-danger mx-1' title='Iniciar Consulta' class='ml-2'><i class='fas fa-angle-double-right'></i></a>";
+                    html+="<a href='javascript:void(0)' class='btn btn-sm btn-info text-light mx-1' title='Ver Paciente'><i class='fas fa-eye'></i></a>";
+                    html+="<a href='javascript:void(0)' class='btn btn-sm btn-success text-light mx-1' title='Editar Paciente' class='ml-2'><i class='fas fa-user-edit'></i></a>";
+                    html+="<a href='javascript:void(0)' class='btn btn-sm btn-danger text-light mx-1' title='Iniciar Consulta' class='ml-2'><i class='fas fa-trash'></i></a>";
                 html+="</td>";
                 html+="</tr>";
             }

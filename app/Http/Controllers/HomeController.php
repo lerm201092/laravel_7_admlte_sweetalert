@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Auth;
+
 class HomeController extends Controller
 {
     /**
@@ -22,6 +24,14 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index(){
-       return redirect("/asesor/resumen");
+
+        if( Auth::User()->rol == 1 ){ // Administrador
+            return redirect("/admin/resumen");
+        }
+
+        if( Auth::User()->rol == 2 ){ // Asesor
+            return redirect("/asesor/resumen");
+        }
+
     }
 }

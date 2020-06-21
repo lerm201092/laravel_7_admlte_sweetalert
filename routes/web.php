@@ -24,3 +24,8 @@ Route::get('/asesor/resumen', 'Asesor\ResumenController@ShowView')->name('Asesor
 Route::get('/asesor/ejercicios/listado', 'Asesor\EjerciciosController@ShowViewListado')->name('AsesorEjerciciosListado');
 Route::post("/asesor/ejercicios/play/{hash1}/{id}/{hash2}/{duration}/{hash3}/{size}/{hash4}", 'Asesor\EjerciciosController@RecibirParametros');
 Route::get('/asesor/citas/listado', 'Asesor\CitasController@ShowViewListado')->name('AsesorCitasListado');
+
+
+Route::get('/admin/resumen', 'Admin\ResumenController@ShowView')->name('AdminResumen');
+Route::get('/admin/empresas/listado', 'Admin\EmpresasController@ShowViewListado')->name('AdminEmpresasListado');
+Route::get('/admin/empresas/listado/{page}', 'Admin\EmpresasController@ShowViewListado')->name('AdminEmpresasListadoPage');
