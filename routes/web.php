@@ -28,4 +28,8 @@ Route::get('/asesor/citas/listado', 'Asesor\CitasController@ShowViewListado')->n
 
 Route::get('/admin/resumen', 'Admin\ResumenController@ShowView')->name('AdminResumen');
 Route::get('/admin/empresas/listado', 'Admin\EmpresasController@ShowViewListado')->name('AdminEmpresasListado');
-Route::get('/admin/empresas/listado/{page}', 'Admin\EmpresasController@ShowViewListado')->name('AdminEmpresasListadoPage');
+Route::get('/admin/empresas/ver/{id}', 'Admin\EmpresasController@ShowViewVer')->name('AdminEmpresasVer');
+Route::get('/admin/empresas/crear', 'Admin\EmpresasController@ShowViewCrear')->name('AdminEmpresasCrear');
+Route::get('/admin/empresas/editar/{id}', 'Admin\EmpresasController@ShowViewEditar')->name('AdminEmpresasEditar');
+Route::put('/admin/empresas/editar/{id}', 'Admin\EmpresasController@editar');
+Route::post('/admin/empresas/crear', 'Admin\EmpresasController@crear');
