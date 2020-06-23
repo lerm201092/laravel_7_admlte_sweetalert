@@ -25,11 +25,11 @@ class HomeController extends Controller
      */
     public function index(){
 
-        if( Auth::User()->rol == 1 ){ // Administrador
+        if( Auth::User()->rol == 'AD' ){ // Administrador
             return redirect("/admin/resumen");
         }
 
-        if( Auth::User()->rol == 2 ){ // Asesor
+        if( Auth::User()->rol == 'AS' ){ // Asesor
             return redirect("/asesor/resumen");
         }
 

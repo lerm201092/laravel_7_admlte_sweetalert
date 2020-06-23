@@ -33,3 +33,8 @@ Route::get('/admin/empresas/crear', 'Admin\EmpresasController@ShowViewCrear')->n
 Route::get('/admin/empresas/editar/{id}', 'Admin\EmpresasController@ShowViewEditar')->name('AdminEmpresasEditar');
 Route::put('/admin/empresas/editar/{id}', 'Admin\EmpresasController@editar');
 Route::post('/admin/empresas/crear', 'Admin\EmpresasController@crear');
+
+Route::get('/admin/usuarios/listado', 'Admin\UsuariosController@ShowViewListado')->name('AdminUsuariosListado');
+Route::get('/admin/usuarios/crear', 'Admin\UsuariosController@ShowViewCrear')->name('AdminUsuariosCrear');
+Route::get('/admin/usuarios/ver/{id}', 'Admin\UsuariosController@ShowViewVer')->name('AdminUsuariosVer');
+Route::get('/admin/usuarios/editar/{id}', 'Admin\UsuariosController@ShowViewEditar')->name('AdminUsuariosEditar');

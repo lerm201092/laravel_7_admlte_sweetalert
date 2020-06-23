@@ -9,6 +9,7 @@ class EjerciciosController extends Controller
 {
     public function __construct(){
         $this->middleware('auth');
+        $this->middleware('rol_asesor');
     }
 
     public function ShowViewListado(){

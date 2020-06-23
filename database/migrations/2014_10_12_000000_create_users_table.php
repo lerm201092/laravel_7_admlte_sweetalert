@@ -17,8 +17,16 @@ class CreateUsersTable extends Migration
         Schema::dropIfExists('users');
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('tipoid' , 3);
+            $table->string('numid');
+            $table->string('nombre')->nullable();
+            $table->string('apellido')->nullable();
+            $table->string('sexo' , 3)->nullable();
+            $table->integer('id_empresa')->nullable();
+            $table->integer('id_area')->nullable();
             $table->string('rol');
+            $table->string('direccion')->nullable();
+            $table->string('telefono')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
@@ -28,8 +36,8 @@ class CreateUsersTable extends Migration
         });
 
         // Insert some stuff
-        DB::table('users')->insert( array('rol' => 'AD', 'email' => 'admin@gmail.com','name' => 'Admin', 'password'=> Hash::make('20202020') ) );
-        DB::table('users')->insert( array('rol' => 'AS', 'email' => 'lerm201092@gmail.com','name' => 'Luis', 'password'=> Hash::make('20202020') ) );
+        DB::table('users')->insert( array('rol' => 'AD', 'tipoid' => 'CC','numid' => '1234', 'email' => 'admin@gmail.com','nombre' => 'Admin', 'password'=> Hash::make('20202020') ) );
+        DB::table('users')->insert( array('rol' => 'AS', 'tipoid' => 'CC','numid' => '1234', 'email' => 'lerm201092@gmail.com','nombre' => 'Luis', 'password'=> Hash::make('20202020') ) );
     }
 
     /**

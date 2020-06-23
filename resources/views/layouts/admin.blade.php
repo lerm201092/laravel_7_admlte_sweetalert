@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
 <html lang="en">
 
 <head>
@@ -24,6 +20,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </head>
 
 <body class="hold-transition sidebar-mini">
+
 	<div class="wrapper">
 
 		<!-- Navbar -->
@@ -34,14 +31,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					<a class="nav-link text-light" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
 				</li>
 				<li class="nav-item font-weight-bold">
-					<p class="nav-link mb-0 font-weight-bold">GOVISTA S.A.S.</p>
+					<p class="nav-link mb-0 font-weight-bold">GOVISTA S.A.S. {{ Auth::user()->rol }}</p>
 				</li>
 			</ul>
 			<ul class="navbar-nav ml-auto  mr-3">
 				<li class="nav-item d-none d-sm-inline-block" onclick="submenu();" ;="">
 					<a href="javascript:void(0)" class="nav-link text-light font-weight-bold">
 						<span class="fa fa-user mr-3"></span>
-						{{ Auth::user()->name }} </a>
+						{{ Auth::user()->nombre }} </a>
 				</li>
 			</ul>
 		</nav>
@@ -52,7 +49,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			<!-- Brand Logo -->
 			<a href="/home" class="brand-link text-center mt-2">
 				<img src="{{ asset('img/logo.png') }}" alt="AdminLTE Logo" class="img-responsive" style="opacity: .8; max-height: 45px;">
-				<h6 class="mt-3" style="font-weight: 800">Asesor Comercial</h6>
+				<h6 class="mt-3" style="font-weight: 800">Administrador</h6>
 			</a>
 
 
@@ -65,7 +62,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                with font-awesome or any other icon font library -->
 
 						<li class="nav-item" id="li-resumen">
-							<a href="{{ route('AsesorResumen') }}" class="nav-link">
+							<a href="{{ route('AdminResumen') }}" class="nav-link">
 								<i class="nav-icon fas fa-th"></i>
 								<p>
 									Resumen
@@ -74,7 +71,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 						</li>
 
 						<li class="nav-item" id="li-empresas">
-							<a href="{{ route('AsesorEjerciciosListado') }}" class="nav-link">
+							<a href="{{ route('AdminEmpresasListado') }}" class="nav-link">
 								<i class="nav-icon fas fa-building"></i>
 								<p>
 									Empresas
@@ -83,7 +80,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 						</li>
 
 						<li class="nav-item" id="li-ejercicios">
-							<a href="{{ route('AsesorEjerciciosListado') }}" class="nav-link">
+							<a href="{{ route('AdminUsuariosListado') }}" class="nav-link">
 								<i class="nav-icon fas fa-users"></i>
 								<p>
 									Usuarios
