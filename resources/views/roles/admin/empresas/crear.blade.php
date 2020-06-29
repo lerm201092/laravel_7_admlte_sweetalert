@@ -25,13 +25,7 @@
                     <div class="form-group">
                         <label class="mb-0" for="nit">NIT:</label>
                         <input name="nit" id="nit" value="{{ old('nit') }}" type="text" class="form-control form-control-sm @error('nit') is-invalid @enderror">
-
-                        @error('nit')
-                        <p>
-                            <span class="text-danger font-weight-bold" style="font-size: 12px;">{{ $message }}</span>
-                        </p>
-                        @enderror
-
+						 @error('nit')<p><span class="text-danger font-weight-bold">{{ $message }}</span></p>@enderror
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -82,17 +76,12 @@
 @endsection
 
 @section('script')
+
 @if(count($errors) > 0)
-<script>var has_errors = true; </script>
-@else
-<script> var has_errors = false; </script>
+<script> swal("Govista S.A.S.", "Complete los campos correctamente.", "warning"); </script>
 @endif
 
 <script>
-    console.log(has_errors);
-    if(has_errors){
-       swal("Govista S.A.S.", "Complete los campos correctamente.", "warning");
-    }
     $("#li-empresas a.nav-link").addClass("active");
     function cargando() {
         swal('Cargando, espere un momento por favor ... ', {

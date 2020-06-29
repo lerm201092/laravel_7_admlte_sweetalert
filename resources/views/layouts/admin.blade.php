@@ -28,7 +28,8 @@
 			<!-- Left navbar links -->
 			<ul class="navbar-nav">
 				<li class="nav-item">
-					<a class="nav-link text-light" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+					<a class="nav-link text-light" data-widget="pushmenu" href="#" role="button"><i
+							class="fas fa-bars"></i></a>
 				</li>
 				<li class="nav-item font-weight-bold">
 					<p class="nav-link mb-0 font-weight-bold">GOVISTA S.A.S. {{ Auth::user()->rol }}</p>
@@ -48,7 +49,8 @@
 		<aside class="main-sidebar sidebar-light-primary elevation-4">
 			<!-- Brand Logo -->
 			<a href="/home" class="brand-link text-center mt-2">
-				<img src="{{ asset('img/logo.png') }}" alt="AdminLTE Logo" class="img-responsive" style="opacity: .8; max-height: 45px;">
+				<img src="{{ asset('img/logo.png') }}" alt="AdminLTE Logo" class="img-responsive"
+					style="opacity: .8; max-height: 45px;">
 				<h6 class="mt-3" style="font-weight: 800">Administrador</h6>
 			</a>
 
@@ -57,7 +59,8 @@
 			<div class="sidebar">
 				<!-- Sidebar Menu -->
 				<nav class="mt-2">
-					<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+					<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+						data-accordion="false">
 						<!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
 
@@ -79,7 +82,7 @@
 							</a>
 						</li>
 
-						<li class="nav-item" id="li-ejercicios">
+						<li class="nav-item" id="li-usuarios">
 							<a href="{{ route('AdminUsuariosListado') }}" class="nav-link">
 								<i class="nav-icon fas fa-users"></i>
 								<p>
@@ -89,7 +92,8 @@
 						</li>
 
 						<li class="nav-item" id="li-cerrar">
-							<a href="javascript:void(0)" onclick=" $('#ModalCerrarSession').modal('show')" class="nav-link">
+							<a href="javascript:void(0)" onclick=" $('#ModalCerrarSession').modal('show')"
+								class="nav-link">
 								<i class="nav-icon fas fa-sign-out-alt"></i>
 								<p>
 									Cerrar sesión
@@ -137,7 +141,8 @@
 				Anything you want
 			</div>
 			<!-- Default to the left -->
-			<strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+			<strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights
+			reserved.
 		</footer>
 	</div>
 	<!-- ./wrapper -->

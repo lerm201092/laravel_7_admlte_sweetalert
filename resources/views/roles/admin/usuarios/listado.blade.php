@@ -2,23 +2,28 @@
 
 @section('head')
 <style>
-    td > form > a.btn-sm, td > form > button.btn-sm {
+    td>form>a.btn-sm,
+    td>form>button.btn-sm {
         height: 20px;
         width: 22px;
         font-size: 10px;
         line-height: 19px;
         padding: 0px;
     }
-    
 </style>
 @endsection
 
 
 @section('content')
 <div class="row justify-content-center px-1 py-4">
+    @error('password2')
+    <p class="alert alert-danger w-100">Error al actualizar la contraseña: <span
+            class="font-weight-bold msg-err">{{ $message }}</span></p>
+    @enderror
+
     <div class="col-md-12 card p-0">
         <div class="card-header">
-            <p class="font-weight-bold mb-0">Listado de ejercicios</p>
+            <p class="font-weight-bold mb-0">Listado de usuarios</p>
         </div>
         <div class="card-body">
             @if(Request::get('search'))
@@ -31,18 +36,21 @@
 
             <div class="row mb-3">
                 <div class="col-3 p-0">
-                    <a href="{{ route('AdminUsuariosCrear') }}" class="btn btn-sm btn-success btn-round btn-just-icon" title="Crear Nueva Empresa">
+                    <a href="{{ route('AdminUsuariosCrear') }}" class="btn btn-sm btn-success btn-round btn-just-icon"
+                        title="Crear Nueva Empresa">
                         <i class="fas fa-plus text-xs mr-2"></i> <b>Nuevo</b>
                     </a>
                 </div>
                 <div class="col-9 p-0">
                     {{ Form::open(['method' => 'GET', 'onsubmit' => 'cargando()', 'url' => '/admin/usuarios/listado', 'class'=>'float-right', 'role' => 'search'])  }}
                     <div class="input-group">
-                        <input type="text" style="max-width:200px" class="form-control form-control-sm" name="search" placeholder="Buscar..." value="{{ Request::get('search') ?? '' }}">
+                        <input type="text" style="max-width:200px" class="form-control form-control-sm" name="search"
+                            placeholder="Buscar..." value="{{ Request::get('search') ?? '' }}">
                         <button type="submit" class="btn btn-sm btn-info text-light btn-round btn-just-icon">
                             <i class="fas fa-search"></i>
                         </button>
-                        <a href="{{ route('AdminUsuariosListado') }}" class="ml-1 btn btn-sm btn-danger"><i class="fas fa-eraser"></i></a>
+                        <a href="{{ route('AdminUsuariosListado') }}" class="ml-1 btn btn-sm btn-danger"><i
+                                class="fas fa-eraser"></i></a>
                     </div>
                     {{ Form::close() }}
                 </div>
@@ -61,39 +69,46 @@
                     </thead>
                     <tbody id="tbody_historias">
                         @if( count($usuarios) > 0 )
-                            @foreach( $usuarios as $reg )
-                            <tr>
-                                <td class="d-none d-md-table-cell">( {{ $reg->tipoid }} ) {{ $reg->numid }}</td>
-                                <td>{{ strtoupper($reg->nombre) }}</td>
-                                <td>{{ strtoupper($reg->apellido) }}</td>
-                                <td class="d-none d-md-table-cell">{{ $reg->email }}</td>
-                                <td class="d-none d-md-table-cell">{{ $reg->rol_user }}</td>
-                                <td class="d-none d-md-table-cell">@if( $reg->estado == "AC" ) Activa @else Inactiva @endif</td>
-                                <td class="text-center">
+                        @foreach( $usuarios as $reg )
+                        <tr>
+                            <td class="d-none d-md-table-cell">( {{ $reg->tipoid }} ) {{ $reg->numid }}</td>
+                            <td>{{ strtoupper($reg->nombre) }}</td>
+                            <td>{{ strtoupper($reg->apellido) }}</td>
+                            <td class="d-none d-md-table-cell">{{ $reg->email }}</td>
+                            <td class="d-none d-md-table-cell">{{ $reg->rol_user }}</td>
+                            <td class="d-none d-md-table-cell">@if( $reg->estado == "AC" ) Activa @else Inactiva @endif
+                            </td>
+                            <td class="text-center">
 
-                                    {{ Form::open(['method' => 'PUT', 'onsubmit' => 'cargando()', 'url' => '/admin/empresas/editar/'.$reg->id ])  }}
-                                        <a title="Ver Empresa" class="btn btn-sm btn-info text-light" href="{{ route('AdminUsuariosVer', $reg->id ) }}">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
-                                        <a title="Editar Empresa" class="btn btn-sm btn-warning" href="{{ route('AdminUsuariosEditar', $reg->id ) }}">
-                                            <i class="fas fa-wrench"></i>
-                                        </a>
-                                        @csrf
-                                        @if( $reg->estado == "AC" )
-                                            <input type="hidden" name="estado" value="IN" />
-                                            <button title="Inactivar Empresa" class="btn btn-sm btn-danger">
-                                                <i class="fas fa-power-off"></i>
-                                            </button>
-                                        @else
-                                            <input type="hidden" name="estado" value="AC" />
-                                            <button title="Activar Empresa" class="btn btn-sm btn-success">
-                                                <i class="fas fa-power-off"></i>
-                                            </button>
-                                        @endif
-                                    {{ Form::close() }}
-                                </td>
-                            </tr>
-                            @endforeach
+                                {{ Form::open(['method' => 'PUT', 'onsubmit' => 'cargando()', 'url' => '/admin/usuarios/editar/'.$reg->id ])  }}
+                                <a title="Ver" class="btn btn-sm btn-info text-light"
+                                    href="{{ route('AdminUsuariosVer', $reg->id ) }}">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a title="Editar" class="btn btn-sm btn-warning"
+                                    href="{{ route('AdminUsuariosEditar', $reg->id ) }}">
+                                    <i class="fas fa-wrench"></i>
+                                </a>
+                                <a title="Cambiar contraseña" class="btn btn-sm btn-warning"
+                                    href="javascript:editarPass('{{ $reg->nombre.' '.$reg->apellido }}', {{ $reg->id }})">
+                                    <i class="fas fa-lock"></i>
+                                </a>
+                                @csrf
+                                @if( $reg->estado == "AC" )
+                                <input type="hidden" name="estado" value="IN" />
+                                <button title="Inactivar" class="btn btn-sm btn-danger">
+                                    <i class="fas fa-power-off"></i>
+                                </button>
+                                @else
+                                <input type="hidden" name="estado" value="AC" />
+                                <button title="Activar" class="btn btn-sm btn-success">
+                                    <i class="fas fa-power-off"></i>
+                                </button>
+                                @endif
+                                {{ Form::close() }}
+                            </td>
+                        </tr>
+                        @endforeach
                         @else
                         <tr>
                             <td colspan="7">No hay registros</td>
@@ -112,11 +127,73 @@
         </div>
     </div>
 </div>
+
+
+
+
+<!-- The Modal -->
+<div class="modal" id="modalCambiarPassword">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">GoVista S.A.S.</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <p>Actualizar Contraseña a: <b><span id="nombreUsu"></span><b></p>
+                {{ Form::open(['id'=> 'formCambiarContrasena', 'method' => 'PUT', 'onsubmit' => "cargando(); $('#modalCambiarPassword').modal('toggle');", 'url' => '/admin/usuarios/editar/'.$reg->id ])  }}
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="mb-0" for="password">Contraseña:</label>
+                        {!! Form::Password('password', [ 'required', 'class' => 'form-control form-control-sm', 'autocomplete' => 'off' ]) !!}
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="mb-0" for="nit">Confirme contraseña:</label>
+                        {!! Form::Password('password2', [ 'required', 'class' => 'form-control form-control-sm','autocomplete' => 'off' ]) !!}
+                    </div>
+                </div>
+                <hr class="m-0 my-4 p-0">
+
+                <p>
+                    <button type="submit" class="btn btn-sm  btn-success" style="min-width: 80px">Actualizar</button>
+                    <a class="btn btn-sm btn-secondary text-light" data-dismiss="modal">Cancelar </a>
+                </p>
+
+                {{ Form::close() }}
+
+            </div>
+
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('script')
+
+@if( count($errors) > 0 )
+<script>
+    swal("Govista S.A.S.", "Complete los campos correctamente.", "error"); 
+</script>
+@endif
+
 <script>
     $("#li-usuarios a.nav-link").addClass("active");
+
+    function editarPass(nombre, id){
+        $("#nombreUsu").text(nombre);
+        $("#formCambiarContrasena").attr( "action", '/admin/usuarios/editar/'+id );
+        $("input[name=id]").val(id);
+        $("input[name=password]").val('');
+        $("input[name=password2]").val('');
+        $("#modalCambiarPassword").modal('show');
+    }
+
     function cargando(){
         swal('Cargando, espere un momento por favor ... ', {
             closeOnClickOutside: false,

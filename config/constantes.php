@@ -30,6 +30,7 @@ return [
 
     'rol_admin' => [
         'AD' => 'Administrador',
+        'AC' => 'Admin. Clinica',
         'AS' => 'Asesor Comercial',
     ],
 
