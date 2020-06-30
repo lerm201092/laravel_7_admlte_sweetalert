@@ -25,7 +25,7 @@
                     <div class="form-group">
                         <label class="mb-0" for="nit">NIT:</label>
                         <input name="nit" id="nit" value="{{ old('nit') }}" type="text" class="form-control form-control-sm @error('nit') is-invalid @enderror">
-						 @error('nit')<p><span class="text-danger font-weight-bold">{{ $message }}</span></p>@enderror
+						 @error('nit')<p><span class="text-danger font-weight-bold  msg-err">{{ $message }}</span></p>@enderror
                     </div>
                 </div>
                 <div class="col-md-6">

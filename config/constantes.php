@@ -11,6 +11,13 @@ return [
         '6' => 'Adulto Responsable'
     ],
 
+    'profesion' => [
+	    '' => '- Escoja una opción -',
+        'OFT' => 'Oftalmólogo',
+        'OPT' => 'Optómetra',
+        'PST' => 'Psicoterapeuta'
+    ],
+
     'tipo_documento' => [
         'RC' => 'Registro Civil',
         'TI' => 'Tarjeta de Identidad',
@@ -32,6 +39,13 @@ return [
         'AD' => 'Administrador',
         'AC' => 'Admin. Clinica',
         'AS' => 'Asesor Comercial',
+    ],
+
+    'rol_clinica' => [
+        '' => '- Escoja una opción -',
+        'AC' => 'Admin. Clinica',
+        'ME' => 'Medico',
+        'PA' => 'Paciente',
     ],
 
     'estado' => [

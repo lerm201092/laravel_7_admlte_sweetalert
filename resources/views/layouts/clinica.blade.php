@@ -51,7 +51,7 @@
 			<a href="/home" class="brand-link text-center mt-2">
 				<img src="{{ asset('img/logo.png') }}" alt="AdminLTE Logo" class="img-responsive"
 					style="opacity: .8; max-height: 45px;">
-				<h6 class="mt-3" style="font-weight: 800">Administrador</h6>
+				<h6 class="mt-3" style="font-weight: 800">Clinica</h6>
 			</a>
 
 
@@ -65,7 +65,7 @@
                with font-awesome or any other icon font library -->
 
 						<li class="nav-item" id="li-resumen">
-							<a href="{{ route('AdminResumen') }}" class="nav-link">
+							<a href="{{ route('ClinicaResumen') }}" class="nav-link">
 								<i class="nav-icon fas fa-th"></i>
 								<p>
 									Resumen
@@ -73,17 +73,8 @@
 							</a>
 						</li>
 
-						<li class="nav-item" id="li-empresas">
-							<a href="{{ route('AdminEmpresasListado') }}" class="nav-link">
-								<i class="nav-icon fas fa-building"></i>
-								<p>
-									Empresas
-								</p>
-							</a>
-						</li>
-
 						<li class="nav-item" id="li-usuarios">
-							<a href="{{ route('AdminUsuariosListado') }}" class="nav-link">
+							<a href="{{ route('ClinicaUsuariosListado') }}" class="nav-link">
 								<i class="nav-icon fas fa-users"></i>
 								<p>
 									Usuarios

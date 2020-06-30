@@ -29,6 +29,10 @@ class HomeController extends Controller
             return redirect("/admin/resumen");
         }
 
+        if( Auth::User()->rol == 'AC' ){ // Administrador Clinica
+            return redirect("/clinica/resumen");
+        }
+
         if( Auth::User()->rol == 'AS' ){ // Asesor
             return redirect("/asesor/resumen");
         }

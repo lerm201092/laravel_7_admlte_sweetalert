@@ -217,6 +217,15 @@ a#li-medico.active{
     background: #9c27b0!important;
 }
 
+a.btn-sm,
+    td>form>button.btn-sm {
+        height: 20px!important;
+        width:  22px!important;
+        font-size: 10px;
+        line-height: 19px;
+        padding: 0px;
+    }
+
 </style>
 @endsection
 

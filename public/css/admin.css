@@ -107,3 +107,7 @@ table > thead > tr > th {
 *{ 
     font-family: Calibri, sans-serif;
 }
+
+.msg-err{
+    font-size: 11px!important;
+}

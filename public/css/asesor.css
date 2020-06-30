@@ -82,14 +82,28 @@
     color: #636769;
 }
 
-.table-bordered thead th, .table-bordered thead td {
-    border-bottom-width: 2px;
-    color: white;
-    background: #789daf;
-}
 
 .nav-sidebar .nav-item > .nav-link {
     position: relative;
     height: 50px;
     line-height: 40px;
+}
+
+
+table > tbody > tr > td {
+    font-size: 13px!important;
+}
+
+table > thead > tr > th {
+    font-size: 14px!important;
+    color: #da1c5c!important;
+    padding: 2px 5px!important;
+}
+
+*{ 
+    font-family: Calibri, sans-serif;
+}
+
+.msg-err{
+    font-size: 11px!important;
 }

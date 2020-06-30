@@ -1,5 +1,13 @@
 @extends('layouts.asesor')
 
+@section('name')
+    <style>
+        .btn-play {
+        
+    }
+    </style>
+@endsection
+
 @section('content') 
 <div class="row justify-content-center px-3 mt-4">
     <div class="col-md-12 card p-0">
@@ -64,7 +72,11 @@ function listar(){
 
                 html+= `<form method='POST' action='/asesor/ejercicios/play/{{ $hash1 }}/`+array[i].id+`/{{ $hash2 }}/`+array[i].duration+`/{{ $hash3 }}/2/{{ $hash3 }}'>
                             @csrf 
-                            <button type='submit' class='btn btn-sm bg-verde mx-1'><i class='text-light fas fa-play-circle'></i></button>
+                            <button type='submit' class='btn btn-sm bg-verde mx-1' style='height: 20px!important;
+                                                                                            width:  22px!important;
+                                                                                            font-size: 10px;
+                                                                                            line-height: 19px;
+        padding: 0px;'><i class='text-light fas fa-play-circle'></i></button>
                         </form>`;
             html+="</td>";
             html+="</tr>";

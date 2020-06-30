@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Clinica;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Validation\Rule;
@@ -13,6 +13,8 @@ use App\User;
 use App\Model\Roles;
 use App\Model\Areas;
 use App\Model\Empresas;
+use App\Model\Profesiones;
+use App\Model\Entidades;
 
 use Auth;
 
@@ -22,19 +24,20 @@ class UsuariosController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('rol_admin');
+        $this->middleware('rol_clinica');
     }
 
     public function ShowViewVer($id){
         $usuario = User::findOrFail($id);        
         $dpto_user = Areas::where('id', $usuario->id_area )->first();
         $usuario->dpto = $dpto_user->padre;
-        return view('roles.admin.usuarios.ver', compact('usuario'))
+        return view('roles.clinica.usuarios.ver', compact('usuario'))
                 ->with('js_estado', Config::get('constantes.estado') )
                 ->with('js_tipoid', Config::get('constantes.tipo_documento') )
                 ->with('js_sexo',   Config::get('constantes.sexo')   )
                 ->with('js_rol',   Config::get('constantes.rol_user')   )
-                ->with('js_clinica',   Empresas::where('estado', 'AC')->get()   )
+                ->with('js_profesion',   Profesiones::where('estado', 'AC')->get()   )
+                ->with('js_eps',   Entidades::where('estado', 'AC')->get()   )
                 ->with('js_muni',   Areas::select('id','nomarea')->where('id_tipo', '3')->where('padre', $usuario->dpto)->orderBy('nomarea')->get() )
                 ->with('js_dpto',   Areas::select('id','nomarea')->where('id_tipo', '2')->orderBy('nomarea')->get()  );
     
@@ -45,23 +48,25 @@ class UsuariosController extends Controller
         $usuario = User::findOrFail($id);        
         $dpto_user = Areas::where('id', $usuario->id_area )->first();
         $usuario->dpto = $dpto_user->padre;
-        return view('roles.admin.usuarios.editar', compact('usuario'))
+        return view('roles.clinica.usuarios.editar', compact('usuario'))
                 ->with('js_estado', Config::get('constantes.estado') )
                 ->with('js_tipoid', Config::get('constantes.tipo_documento') )
                 ->with('js_sexo',   Config::get('constantes.sexo')   )
-                ->with('js_rol',   Config::get('constantes.rol_admin')   )
-                ->with('js_clinica',   Empresas::where('estado', 'AC')->get()   )
+                ->with('js_rol',   Config::get('constantes.rol_clinica')   )
+                ->with('js_profesion',   Profesiones::where('estado', 'AC')->get()   )
+                ->with('js_eps',   Entidades::where('estado', 'AC')->get()   )
                 ->with('js_muni',   Areas::select('id','nomarea')->where('id_tipo', '3')->where('padre', $usuario->dpto)->orderBy('nomarea')->get() )
                 ->with('js_dpto',   Areas::select('id','nomarea')->where('id_tipo', '2')->orderBy('nomarea')->get()  );
     }
     
     public function ShowViewCrear(){
-        return view('roles.admin.usuarios.crear')
+        return view('roles.clinica.usuarios.crear')
                 ->with('js_estado', Config::get('constantes.estado') )
                 ->with('js_tipoid', Config::get('constantes.tipo_documento') )
                 ->with('js_sexo',   Config::get('constantes.sexo')   )
-                ->with('js_rol',   Config::get('constantes.rol_admin')   )
-                ->with('js_clinica',   Empresas::where('estado', 'AC')->get()   )
+                ->with('js_rol',   Config::get('constantes.rol_clinica')   )
+                ->with('js_profesion',   Profesiones::where('estado', 'AC')->get()   )
+                ->with('js_eps',   Entidades::where('estado', 'AC')->get()   )
                 ->with('js_dpto',   Areas::select('id','nomarea')->where('id_tipo', '2')->orderBy('nomarea')->get()  );
     }
 
@@ -74,7 +79,8 @@ class UsuariosController extends Controller
             $usuarios = User::from('users as u')
                 ->select('u.*', 'r.descripcion as rol_user')
                 ->leftJoin('roles as r', 'u.rol', '=', 'r.id')
-                ->whereIn('u.rol',  array('AS', 'AD', 'AC'))
+                ->where('id_empresa', Auth::user()->id_empresa)
+                ->whereIn('u.rol',  array('PA', 'ME', 'AC'))
                 ->where(function ($q) use ($keyword) {
                     $q->where('u.id', 'LIKE', "%$keyword%")
                         ->orWhere('u.tipoid', 'LIKE', "%$keyword%")
@@ -84,16 +90,18 @@ class UsuariosController extends Controller
                 })->paginate($perPage);
         } else {
             $usuarios = User::from('users as u')
-                ->select('u.*', 'r.descripcion as rol_user')
+                ->select('u.*', 'r.descripcion as rol_user')                
                 ->leftJoin('roles as r', 'u.rol', '=', 'r.id')
-                ->whereIn('u.rol',  array('AS', 'AD', 'AC'))
+                ->where('id_empresa', Auth::user()->id_empresa)
+                ->whereIn('u.rol',  array('PA', 'ME', 'AC'))
                 ->paginate($perPage);
         }
 
-        return view('roles.admin.usuarios.listado', compact('usuarios'));
+        return view('roles.clinica.usuarios.listado', compact('usuarios'));
     }
 	
 	public function crear(Request $request){
+        // return $request;
         $validator = Validator::make($request->all(), [
             'email' => 'email|unique:users',
 			'password' => 'required',
@@ -111,7 +119,7 @@ class UsuariosController extends Controller
 
         user::create($requestData);
         alert()->success('Usuario Registrado','GoVista S.A.S.')->persistent('OK');
-        return redirect( route('AdminUsuariosListado') );
+        return redirect( route('ClinicaUsuariosListado') );
     }
 
     public function editar($id, Request $request){ 
@@ -121,10 +129,6 @@ class UsuariosController extends Controller
         ], self::messages());   
 
         $requestData = $request->all();
-
-        if( isset( $requestData['rol'] ) ){
-            if( $requestData['rol'] != 'AC'){ $requestData['id_empresa'] = 1; }
-        }
 
         if( isset( $requestData['password'] ) ){
             $validator = Validator::make($request->all(), [
@@ -142,7 +146,7 @@ class UsuariosController extends Controller
         $usuario = User::findOrFail($id);
         $usuario = $usuario->update($requestData);
         alert()->success('Datos actualizados','GoVista S.A.S.')->persistent('OK');
-        return redirect( route('AdminUsuariosListado') );
+        return redirect( route('ClinicaUsuariosListado') );
 
     }
 	

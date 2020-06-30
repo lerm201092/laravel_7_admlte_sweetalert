@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.clinica')
 
 @section('head')
 <style>
@@ -15,7 +15,9 @@
             <p class="font-weight-bold mb-0">Crear nuevo usuario</p>
         </div>
         <div class="card-body px-4">
-            {{ Form::open([ 'method' => 'POST', 'onsubmit' => 'cargando()', 'url' => '/admin/usuarios/crear' ])  }}
+            {{ Form::open([ 'method' => 'POST', 'onsubmit' => 'cargando()', 'url' => '/clinica/usuarios/crear' ])  }}
+            <input type="hidden" name="id_empresa" value="{{ Auth::user()->id_empresa }}" />
+
             <div class="row">
                 <div class="col-12">
                     <p style="border-bottom: 2px solid #6c757d; font-weight: 600; color:#6c757d;">Info. Usuario</p>
@@ -92,8 +94,8 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="mb-0" required for="id_area">Ciudad:</label>
-                        <select  name='id_area' class="form-control form-control-sm">
+                        <label class="mb-0"  for="id_area">Ciudad:</label>
+                        <select  name='id_area' required class="form-control form-control-sm">
                             <option value=''>- Escoja una opción -</option>
                         </select>
                     </div>
@@ -126,23 +128,40 @@
                     </div>
                 </div>
                 <div class="col-md-4">
+                {{ old('rol') }}
                     <div class="form-group">
-                        <label class="mb-0" for="nit">Rol:</label>
-                        {{ Form::select('rol', $js_rol, null, [ 'required', 'class' => 'form-control form-control-sm']) }}
+                        <label class="mb-0" for="rol">Rol:</label>
+                        {{ Form::select('rol', $js_rol, '', [ 'required', 'class' => 'form-control form-control-sm']) }}
                     </div>
                 </div>
 
-                <div class="col-12 mt-5 d-none" id="divCli1">
-                    <p style="border-bottom: 2px solid #6c757d; font-weight: 600; color:#6c757d;">Clinica a asociar</p>
+                <div class="col-12 mt-5 d-none" id="divMed1">
+                    <p style="border-bottom: 2px solid #6c757d; font-weight: 600; color:#6c757d;">Info. Perfil Medico</p>
                 </div>
 
-                <div class="col-md-12 d-none" id="divCli2">
+                <div class="col-md-8 d-none" id="divMed2">
                     <div class="form-group">
-                        <label class="mb-0" for="dpto">Clinica:</label>
-                        <select name='id_empresa' class="form-control form-control-sm">
+                        <label class="mb-0" for="id_profesion">Especialidad Medica:</label>
+                        <select name='id_profesion' class="form-control form-control-sm">
                             <option value=''>- Escoja una opción -</option>
-                            @foreach ($js_clinica as $clinica)
-                            <option value='{{ $clinica->id }}'>{{ $clinica->nombre }}</option>
+                            @foreach ($js_profesion as $profesion)
+                            <option value='{{ $profesion->id }}'>{{ $profesion->descripcion }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-12 mt-5 d-none" id="divPac1">
+                    <p style="border-bottom: 2px solid #6c757d; font-weight: 600; color:#6c757d;">Info. Perfil Paciente</p>
+                </div>
+
+                <div class="col-md-8 d-none" id="divPac2">
+                    <div class="form-group">
+                        <label class="mb-0" for="id_eps">EPS Paciente:</label>
+                        <select name='id_eps' class="form-control form-control-sm">
+                            <option value=''>- Escoja una opción -</option>
+                            @foreach ($js_eps as $eps)
+                            <option value='{{ $eps->id }}'>{{ $eps->descripcion }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -169,6 +188,7 @@
 
 <script>
     $("#li-usuarios a.nav-link").addClass("active");
+    $('select[name=rol]').val('').change();
 	
     $("select[name=dpto]").on('change', function() {
         cargando();
@@ -206,18 +226,24 @@
     });
 
     $("select[name=rol]").on('change', function() {
+        $("#divPac1").addClass('d-none');
+        $("#divPac2").addClass('d-none');
+        $("#divMed1").addClass('d-none');
+        $("#divMed2").addClass('d-none');
+        $('select[name=id_eps]').val('').change();
+        $('select[name=id_profesion]').val('').change();
+        $("select[name=id_eps]").removeAttr('required');
+        $("select[name=id_profesion]").removeAttr('required');
+
         var sel = $(this);
-        if (sel.val() == 'AC') {
-            $("select[name=id_empresa]").prop('required', true);
-            $('select[name=id_empresa]').val('').change();
-            $('select[name=id_empresa]')
-            $("#divCli1").removeClass('d-none');
-            $("#divCli2").removeClass('d-none');
-        } else {
-            $("select[name=id_empresa]").removeAttr('required');
-            $("#divCli1").addClass('d-none');
-            $("#divCli2").addClass('d-none');
-            $('select[name=id_empresa]').val('').change();
+        if (sel.val() == 'ME') {
+            $("select[name=id_profesion]").prop('required', true);
+            $("#divMed1").removeClass('d-none');
+            $("#divMed2").removeClass('d-none');
+        } else if( sel.val() == 'PA' ) {            
+            $("select[name=id_eps]").prop('required', true);
+            $("#divPac1").removeClass('d-none');
+            $("#divPac2").removeClass('d-none');
         }
     });
 

@@ -61,6 +61,7 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'rol_admin' =>  \App\Http\Middleware\RolAdmin::class,
         'rol_asesor' =>  \App\Http\Middleware\RolAsesor::class,
+        'rol_clinica' =>  \App\Http\Middleware\RolClinica::class,
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
